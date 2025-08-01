@@ -1,14 +1,10 @@
-import { prisma } from '@/lib/db'
+import { caller } from '@/trpc/server'
 import React from 'react'
 
 const page = async () => {
-  const users = await prisma.user.findMany()
+  const data = await caller.createAI({ text: 'hello world' })
   return (
-    <div>
-      {users.map((user) => (
-        <div key={user.id}>{user.email}</div>
-      ))}
-    </div>
+    <div>{JSON.stringify(data)}</div>
   )
 }
 
